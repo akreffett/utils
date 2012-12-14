@@ -4,7 +4,7 @@
 #All rights reserved.
 
 #Compatible with MAEC v3.0
-#Last updated 12/6/2012
+#Last updated 12/14/2012
 
 import maec_bundle_3_0 as maecbundle
 import maec_package_1_0 as maecpackage
@@ -761,13 +761,13 @@ class maec_object:
         
         for key, value in library_attributes.items():
             if key == 'name' and self.__value_test(value):
-                    libobject.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
+                libobject.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
             elif key == 'path' and self.__value_test(value):
-                    libobject.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
+                libobject.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
             elif key == 'size' and self.__value_test(value):
-                    libobject.set_Size(maecbundle.cybox_common_types_1_0.UnsignedLongObjectAttributeType(valueOf_=maec.quote_xml(value)))
+                libobject.set_Size(maecbundle.cybox_common_types_1_0.UnsignedLongObjectAttributeType(valueOf_=maec.quote_xml(value)))
             elif key == 'version' and self.__value_test(value):
-                    libobject.set_Version(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
+                libobject.set_Version(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maec.quote_xml(value)))
             elif key == 'type' and self.__value_test(value):
                 if value == 'static':
                     libobject.set_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_="Static"))
@@ -867,12 +867,10 @@ class maec_object:
         uriobject.set_anyAttributes_({'xsi:type' : 'URIObj:URIObjectType'})
         
         for key, value in uri_attributes.items():
-            if key == 'type':
-                if self.__value_test(value):
-                    uriobject.set_type(value)
-            elif key == 'value':
-                if self.__value_test(value):
-                    uriobject.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
+            if key == 'type' and self.__value_test(value):
+                uriobject.set_type(value)
+            elif key == 'value' and self.__value_test(value):
+                uriobject.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
             elif key == 'related_objects':
                 related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
                 for related_object in value:
@@ -894,21 +892,16 @@ class maec_object:
         registry_value = win_registry_object.RegistryValueType()
         #set object attributes
         for key, value in registry_attributes.items():
-            if key == 'hive':
-                if self.__value_test(value):
-                    reg_object.set_Hive(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'key':
-                if self.__value_test(value):
-                    reg_object.set_Key(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'value':
-                if self.__value_test(value):
-                    registry_value.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'valuedata':
-                if self.__value_test(value):
-                    registry_value.set_Data(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'valuedatatype':
-                if self.__value_test(value):
-                    registry_value.set_Datatype(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'hive' and self.__value_test(value):
+                reg_object.set_Hive(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'key' and self.__value_test(value):
+                reg_object.set_Key(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'value' and self.__value_test(value):
+                registry_value.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'valuedata' and self.__value_test(value):
+                registry_value.set_Data(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'valuedatatype' and self.__value_test(value):
+                registry_value.set_Datatype(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
                 
@@ -930,33 +923,28 @@ class maec_object:
         fs_hashes = maecbundle.cybox_common_types_1_0.HashListType()
         
         for key, value in file_attributes.items():
-            if key == 'md5':
-                if self.__value_test(value):
-                    hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
-                    hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='MD5')
-                    hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
-                    fs_hashes.add_Hash(hash)
-            elif key == 'sha1':
-                if self.__value_test(value):
-                    hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
-                    hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='SHA1')
-                    hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
-                    fs_hashes.add_Hash(hash)
-            elif key == 'packer':
-                if self.__value_test(value):
-                    packer_list = file_object.PackerListType()
-                    packer = file_object.PackerAttributesType(Name=maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-                    packer_list.add_Packer(packer)
-                    fileobj.set_Packer_List(packer_list)
+            if key == 'md5' and self.__value_test(value):
+                hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
+                hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='MD5')
+                hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
+                fs_hashes.add_Hash(hash)
+            elif key == 'sha1' and self.__value_test(value):
+                hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
+                hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='SHA1')
+                hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
+                fs_hashes.add_Hash(hash)
+            elif key == 'packer' and self.__value_test(value):
+                packer_list = file_object.PackerListType()
+                packer = file_object.PackerAttributesType(Name=maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+                packer_list.add_Packer(packer)
+                fileobj.set_Packer_List(packer_list)
             elif key == 'av_aliases':
                 cybox_object.set_Domain_specific_Object_Attributes(value)
-            elif key == 'filename':
-                if self.__value_test(value):
-                    fileobj.set_File_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'filepath':
-                if self.__value_test(value):
-                    filepath = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
-                    fileobj.set_File_Path(filepath)
+            elif key == 'filename' and self.__value_test(value):
+                fileobj.set_File_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'filepath' and self.__value_test(value):
+                filepath = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
+                fileobj.set_File_Path(filepath)
 
         if fs_hashes.hasContent_():
             fileobj.set_Hashes(fs_hashes)
@@ -973,59 +961,50 @@ class maec_object:
         cybox_object.set_type('File')
         fs_hashes = maecbundle.cybox_common_types_1_0.HashListType()
         for key, value in win_file_attributes.items():
-            if key == 'md5':
-                if self.__value_test(value):
-                    hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
-                    hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='MD5')
-                    hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
-                    fs_hashes.add_Hash(hash)
-            elif key == 'sha1':
-                if self.__value_test(value):
-                    hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
-                    hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='SHA1')
-                    hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
-                    fs_hashes.add_Hash(hash)
-            elif key == 'packer':
-                if self.__value_test(value):
-                    packer_list = file_object.PackerListType()
-                    packer = file_object.PackerAttributesType(Name=maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-                    packer_list.add_Packer(packer)
-                    fileobj.set_Packer_List(packer_list)
+            if key == 'md5' and self.__value_test(value):
+                hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
+                hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='MD5')
+                hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
+                fs_hashes.add_Hash(hash)
+            elif key == 'sha1' and self.__value_test(value):
+                hash_value = maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value))
+                hash_type = maecbundle.cybox_common_types_1_0.HashNameType(datatype='String', valueOf_='SHA1')
+                hash = maecbundle.cybox_common_types_1_0.HashType(Simple_Hash_Value=hash_value, Type=hash_type)
+                fs_hashes.add_Hash(hash)
+            elif key == 'packer' and self.__value_test(value):
+                packer_list = file_object.PackerListType()
+                packer = file_object.PackerAttributesType(Name=maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+                packer_list.add_Packer(packer)
+                fileobj.set_Packer_List(packer_list)
             elif key == 'av_aliases':
                 cybox_object.set_Domain_specific_Object_Attributes(value)
-            elif key == 'filename':
-                if self.__value_test(value):
-                    fileobj.set_File_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'filepath':
-                if self.__value_test(value):
-                    filepath = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
-                    fileobj.set_File_Path(filepath)
-            elif key == 'origin':
-                if self.__value_test(value):
-                    uriobj = uri_object.URIObjectType()
-                    uriobj.set_anyAttributes_({'xsi:type' : 'URIObj:URIObjectType'})
-                    uriobj.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
-                    related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
-                    related_object = maecbundle.cybox_core_1_0.RelatedObjectType(id=self.generator.generate_obj_id(), type_='URI')
-                    related_object.set_Defined_Object(uriobj)
-                    related_objects.add_Related_Object(related_object)
-                    cybox_object.set_Related_Objects(related_objects)
-            elif key == 'linkname':
-                if self.__value_test(value):
-                    sym_links = file_object.SymLinksListType()
-                    sym_link = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
-                    sym_links.add_Sym_Link(sym_link)
-                    fileobj.set_Sym_Links(sym_links)
-            elif key == 'controlcode':
-                if self.__value_test(value):
-                    send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
-                    send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
-                    cybox_object.set_Defined_Effect(send_control_effect)
-            elif key == 'related_object':
-                if value is not None:
-                    related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
-                    related_objects.add_Related_Object(value)
-                    cybox_object.set_Related_Objects(related_objects)
+            elif key == 'filename' and self.__value_test(value):
+                fileobj.set_File_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'filepath' and self.__value_test(value):
+                filepath = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
+                fileobj.set_File_Path(filepath)
+            elif key == 'origin' and self.__value_test(value):
+                uriobj = uri_object.URIObjectType()
+                uriobj.set_anyAttributes_({'xsi:type' : 'URIObj:URIObjectType'})
+                uriobj.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
+                related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
+                related_object = maecbundle.cybox_core_1_0.RelatedObjectType(id=self.generator.generate_obj_id(), type_='URI')
+                related_object.set_Defined_Object(uriobj)
+                related_objects.add_Related_Object(related_object)
+                cybox_object.set_Related_Objects(related_objects)
+            elif key == 'linkname' and self.__value_test(value):
+                sym_links = file_object.SymLinksListType()
+                sym_link = maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value))
+                sym_links.add_Sym_Link(sym_link)
+                fileobj.set_Sym_Links(sym_links)
+            elif key == 'controlcode' and self.__value_test(value):
+                send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
+                send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
+                cybox_object.set_Defined_Effect(send_control_effect)
+            elif key == 'related_object' and value is not None:
+                related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
+                related_objects.add_Related_Object(value)
+                cybox_object.set_Related_Objects(related_objects)
             #elif key == 'file_attributes':
             #    file_attributes = win_file_object.WindowsFileAttributesType()
             #    for file_attribute in value:
@@ -1055,14 +1034,12 @@ class maec_object:
         cybox_object.set_type('Pipe')
         
         for key, value in pipe_attributes.items():
-            if key == 'name' or key == 'filename':
-                if self.__value_test(value):
-                    pipeobj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'controlcode':
-                if self.__value_test(value):
-                    send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
-                    send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
-                    cybox_object.set_Defined_Effect(send_control_effect)
+            if (key == 'name' or key == 'filename') and self.__value_test(value):
+                pipeobj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'controlcode' and self.__value_test(value):
+                send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
+                send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
+                cybox_object.set_Defined_Effect(send_control_effect)
             elif key == 'effect':
                 effect = self.__create_data_effect(value, value.get('type'))
                 if effect != None and effect.hasContent_():
@@ -1084,24 +1061,18 @@ class maec_object:
         for key, value in process_attributes.items():
             if key == 'name':
                 continue
-            elif key == 'filename':
-                if self.__value_test(value):
-                    proc_object.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'command_line':
-                if self.__value_test(value):
-                    image_info.set_Command_Line(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'pid':
-                if self.__value_test(value):
-                    proc_object.set_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
-            elif key == 'parentpid':
-                if self.__value_test(value):
-                    proc_object.set_Parent_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
-            elif key == 'username':
-                if self.__value_test(value):
-                    proc_object.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'start_time':
-                if self.__value_test(value):
-                    proc_object.set_Start_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'filename' and self.__value_test(value):
+                proc_object.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'command_line' and self.__value_test(value):
+                image_info.set_Command_Line(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'pid' and self.__value_test(value):
+                proc_object.set_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            elif key == 'parentpid' and self.__value_test(value):
+                proc_object.set_Parent_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            elif key == 'username' and self.__value_test(value):
+                proc_object.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'start_time' and self.__value_test(value):
+                proc_object.set_Start_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
             elif key == 'av_classifications':
@@ -1124,31 +1095,23 @@ class maec_object:
         for key, value in process_attributes.items():
             if key == 'name':
                 continue
-            elif key == 'filename':
-                if self.__value_test(value):
-                    proc_object.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'command_line':
-                if self.__value_test(value):
-                    image_info.set_Command_Line(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'pid':
-                if self.__value_test(value):
-                    proc_object.set_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
-            elif key == 'parentpid':
-                if self.__value_test(value):
-                    proc_object.set_Parent_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
-            elif key == 'username':
-                if self.__value_test(value):
-                    proc_object.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'start_time':
-                if self.__value_test(value):
-                    proc_object.set_Start_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'sid':
-                if self.__value_test(value):
-                    proc_object.set_Security_ID(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'sections':
-                if self.__value_test(value):
-                    for memory_section in value:
-                        section_list.add_Memory_Section(memory_section)
+            elif key == 'filename' and self.__value_test(value):
+                proc_object.set_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'command_line' and self.__value_test(value):
+                image_info.set_Command_Line(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'pid' and self.__value_test(value):
+                proc_object.set_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            elif key == 'parentpid' and self.__value_test(value):
+                proc_object.set_Parent_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            elif key == 'username' and self.__value_test(value):
+                proc_object.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'start_time' and self.__value_test(value):
+                proc_object.set_Start_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'sid' and self.__value_test(value):
+                proc_object.set_Security_ID(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'sections' and self.__value_test(value):
+                for memory_section in value:
+                    section_list.add_Memory_Section(memory_section)
                 if section_list.hasContent_():
                     proc_object.set_Section_List(section_list)
             elif key == 'association':
@@ -1168,12 +1131,10 @@ class maec_object:
         mem_object.set_anyAttributes_({'xsi:type' : 'MemoryObj:MemoryObjectType'})
         #set object attributes
         for key,value in memory_attributes.items():
-            if key == 'address':
-                if self.__value_test(value):
-                    mem_object.set_Region_Start_Address(maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value)))
-            if key == 'size':
-                if self.__value_test(value):
-                    mem_object.set_Region_Size(maecbundle.cybox_common_types_1_0.UnsignedLongObjectAttributeType(datatype='UnsignedLong', valueOf_=value))
+            if key == 'address' and self.__value_test(value):
+                mem_object.set_Region_Start_Address(maecbundle.cybox_common_types_1_0.HexBinaryObjectAttributeType(datatype='hexBinary', valueOf_=maecbundle.quote_xml(value)))
+            if key == 'size' and self.__value_test(value):
+                mem_object.set_Region_Size(maecbundle.cybox_common_types_1_0.UnsignedLongObjectAttributeType(datatype='UnsignedLong', valueOf_=value))
             elif key == 'association':
                 cybox_object.set_association_type(value)
                 
@@ -1188,9 +1149,8 @@ class maec_object:
         uriobj.set_anyAttributes_({'xsi:type' : 'URIObj:URIObjectType'})
         #set object attributes
         for key, value in internet_attributes.items():
-            if key == 'uri':
-                if self.__value_test(value):
-                    uriobj.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
+            if key == 'uri' and self.__value_test(value):
+                uriobj.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
                 
@@ -1205,31 +1165,24 @@ class maec_object:
         serv_object.set_anyAttributes_({'xsi:type' : 'WinServiceObj:WindowsServiceObjectType'})
         
         for key, value in service_attributes.items():
-            if key == 'name' or key == 'service_name':
-                if self.__value_test(value):
-                    serv_object.set_Service_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'display_name':
-                if self.__value_test(value):
-                    serv_object.set_Display_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'startup_type':
-                if self.__value_test(value):
-                    serv_object.set_Startup_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'service_type':
-                if self.__value_test(value):
-                    serv_object.set_Service_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'started_as':
-                if self.__value_test(value):
-                    serv_object.set_Started_As(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'service_status':
-                if self.__value_test(value):
-                    serv_object.set_Service_Status(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'service_name' and self.__value_test(value):
+                serv_object.set_Service_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'display_name' and self.__value_test(value):
+                serv_object.set_Display_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'startup_type' and self.__value_test(value):
+                serv_object.set_Startup_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'service_type' and self.__value_test(value):
+                serv_object.set_Service_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'started_as' and self.__value_test(value):
+                serv_object.set_Started_As(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'service_status' and self.__value_test(value):
+                serv_object.set_Service_Status(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'filename':
                 continue #revisit
-            elif key == 'controlcode':
-                if self.__value_test(value):
-                    send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
-                    send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
-                    cybox_object.set_Defined_Effect(send_control_effect)
+            elif key == 'controlcode' and self.__value_test(value):
+                send_control_effect = maecbundle.cybox_core_1_0.SendControlCodeEffectType(effect_type='ControlCode_Sent', Control_Code=value)
+                send_control_effect.set_extensiontype_('cybox:SendControlCodeEffectType')
+                cybox_object.set_Defined_Effect(send_control_effect)
             elif key == 'effect':
                 effect_type = value.get('type')
                 if effect_type == 'state change':
@@ -1249,10 +1202,9 @@ class maec_object:
         mutex_obj.set_anyAttributes_({'xsi:type' : 'WinMutexObj:WindowsMutexObjectType'})
         
         for key, value in mutex_attributes.items():
-            if key == 'name':
-                if self.__value_test(value):
-                    mutex_obj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-                    mutex_obj.set_named(True)
+            if key == 'name' and self.__value_test(value):
+                mutex_obj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+                mutex_obj.set_named(True)
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1268,9 +1220,8 @@ class maec_object:
         driver_obj.set_anyAttributes_({'xsi:type' : 'WinDriverObj:WindowsDriverObjectType'})
         
         for key, value in driver_attributes.items():
-            if key == 'name' or key == 'filename':
-                if self.__value_test(value):
-                    driver_obj.set_Driver_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if (key == 'name' or key == 'filename') and self.__value_test(value):
+                driver_obj.set_Driver_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1285,9 +1236,8 @@ class maec_object:
         mailslot_obj.set_anyAttributes_({'xsi:type' : 'WinMailslotObj:WindowsMailslotObjectType'})
         
         for key, value in mailslot_attributes.items():
-            if key == 'name' or key == 'filename':
-                if self.__value_test(value):
-                    mailslot_obj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'name' or key == 'filename' and self.__value_test(value):
+                mailslot_obj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1361,12 +1311,10 @@ class maec_object:
         handle_obj.set_anyAttributes_({'xsi:type' : 'WinHandleObj:WindowsHandleObjectType'})
         
         for key, value in handle_attributes.items():
-            if key == 'id':
-                if self.__value_test(value):
-                    handle_obj.set_ID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
-            if key == 'type':
-                 if self.__value_test(value):
-                    handle_obj.set_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'id' and self.__value_test(value):
+                handle_obj.set_ID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            if key == 'type' and self.__value_test(value):
+                handle_obj.set_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1381,9 +1329,8 @@ class maec_object:
         thread_obj.set_anyAttributes_({'xsi:type' : 'WinThreadObj:WindowsThreadObjectType'})
         
         for key, value in thread_attributes.items():
-            if key == 'tid':
-                if self.__value_test(value):
-                    thread_obj.set_Thread_ID(maecbundle.cybox_common_types_1_0.NonNegativeIntegerObjectAttributeType(datatype='NonNegativeInteger', valueOf_=value))
+            if key == 'tid' and self.__value_test(value):
+                thread_obj.set_Thread_ID(maecbundle.cybox_common_types_1_0.NonNegativeIntegerObjectAttributeType(datatype='NonNegativeInteger', valueOf_=value))
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1398,11 +1345,10 @@ class maec_object:
         task_obj.set_anyAttributes_({'xsi:type' : 'WinTaskObj:WindowsTaskObjectType'})
         
         for key, value in task_attributes.items():
-            if key == 'command':
-                if self.__value_test(value):
-                    task_obj.set_Parameters(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-                elif key == '':
-                    pass
+            if key == 'command' and self.__value_test(value):
+                task_obj.set_Parameters(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == '':
+                pass
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1417,9 +1363,8 @@ class maec_object:
         user_obj.set_anyAttributes_({'xsi:type' : 'WinUserAccountObj:WindowsUserAccountObjectType'})
         
         for key, value in user_attributes.items():
-            if key == 'username':
-                if self.__value_test(value):
-                    user_obj.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'username' and self.__value_test(value):
+                user_obj.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1434,15 +1379,12 @@ class maec_object:
         share_obj.set_anyAttributes_({'xsi:type' : 'WinNetworkShareObj:WindowsNetworkShareObjectType'})
         
         for key, value in user_attributes.items():
-            if key == 'netname':
-                if self.__value_test(value):
-                    share_obj.set_Netname(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'local_path':
-                if self.__value_test(value):
-                    share_obj.set_Local_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'type':
-                if self.__value_test(value):
-                    share_obj.set_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'netname' and self.__value_test(value):
+                share_obj.set_Netname(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'local_path' and self.__value_test(value):
+                share_obj.set_Local_Path(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'type' and self.__value_test(value):
+                share_obj.set_Type(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
             elif key == 'association':
                 cybox_object.set_association_type(value)
       
@@ -1457,21 +1399,18 @@ class maec_object:
         sys_obj.set_anyAttributes_({'xsi:type' : 'WinSystemObj:WindowsSystemObjectType'})
         
         for key, value in system_attributes.items():
-            if key == 'local_time':
-                if self.__value_test(value):
-                    sys_obj.set_Local_Time(maecbundle.cybox_common_types_1_0.TimeObjectAttributeType(datatype='Time',valueOf_=value))
-            elif key == 'system_time':
-                if self.__value_test(value):
-                    sys_obj.set_System_Time(maecbundle.cybox_common_types_1_0.TimeObjectAttributeType(datatype='Time',valueOf_=value))
-            elif key == 'global_flags':
-                if self.__value_test(value):
-                    global_flag_list = win_system_object.GlobalFlagListType()
-                    for flag in value:
-                        global_flag = win_system_object.GlobalFlagType()
-                        global_flag.set_Symbolic_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='string', valueOf_=flag))
-                        global_flag_list.add_Global_Flag(global_flag)
-                    if global_flag_list.hasContent_():
-                        sys_obj.set_Global_Flag_List(global_flag_list)
+            if key == 'local_time' and self.__value_test(value):
+                sys_obj.set_Local_Time(maecbundle.cybox_common_types_1_0.TimeObjectAttributeType(datatype='Time',valueOf_=value))
+            elif key == 'system_time' and self.__value_test(value):
+                sys_obj.set_System_Time(maecbundle.cybox_common_types_1_0.TimeObjectAttributeType(datatype='Time',valueOf_=value))
+            elif key == 'global_flags' and self.__value_test(value):
+                global_flag_list = win_system_object.GlobalFlagListType()
+                for flag in value:
+                    global_flag = win_system_object.GlobalFlagType()
+                    global_flag.set_Symbolic_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='string', valueOf_=flag))
+                    global_flag_list.add_Global_Flag(global_flag)
+                if global_flag_list.hasContent_():
+                    sys_obj.set_Global_Flag_List(global_flag_list)
             elif key == 'association':
                 cybox_object.set_association_type(value)
         
@@ -1495,18 +1434,14 @@ class maec_object:
             av_classification = maec.mmdef.classificationObject(type_='dirty', id=self.generator.generate_avclass_id())
             classificationdetails = maec.mmdef.classificationDetails()
             for key, value in classification.items():
-                if key == 'company':
-                    if self.__value_test(value):
-                        av_classification.set_companyName(value)
-                elif key == 'application_version':
-                    if self.__value_test(value):
-                        classificationdetails.set_productVersion(value)
-                elif key == 'signature_version':
-                    if self.__value_test(value):
-                        classificationdetails.set_definitionVersion(value)
-                elif key == 'classification':
-                    if self.__value_test(value):
-                        av_classification.set_classificationName(value)
+                if key == 'company' and self.__value_test(value):
+                    av_classification.set_companyName(value)
+                elif key == 'application_version' and self.__value_test(value):
+                    classificationdetails.set_productVersion(value)
+                elif key == 'signature_version' and self.__value_test(value):
+                    classificationdetails.set_definitionVersion(value)
+                elif key == 'classification' and self.__value_test(value):
+                    av_classification.set_classificationName(value)
             if classificationdetails.hasContent_():
                 av_classification.set_classificationDetails(classificationdetails)
             if av_classification.hasContent_():
@@ -1531,18 +1466,14 @@ class maec_object:
             data_effect.set_extensiontype_('cybox:DataWrittenEffectType')
         data_segment = maecbundle.cybox_common_types_1_0.DataSegmentType()
         for key, value in effect_attributes.items():
-            if key == 'data_format':
-                if self.__value_test(value):
-                    data_segment.set_Data_Format(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=value))
-            elif key == 'data_size':
-                if self.__value_test(value):
-                    data_segment.set_Data_Size(maecbundle.cybox_common_types_1_0.DataSizeType(units='Bytes', datatype='String', valueOf_=value))
-            elif key == 'data_segment':
-                if self.__value_test(value):
-                    data_segment.set_Data_Segment(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=value))
-            elif key == 'offset':
-                if self.__value_test(value):
-                    data_segment.set_Offset(maecbundle.cybox_common_types_1_0.IntegerObjectAttributeType(datatype='Int', valueOf_=value))
+            if key == 'data_format' and self.__value_test(value):
+                data_segment.set_Data_Format(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=value))
+            elif key == 'data_size' and self.__value_test(value):
+                data_segment.set_Data_Size(maecbundle.cybox_common_types_1_0.DataSizeType(units='Bytes', datatype='String', valueOf_=value))
+            elif key == 'data_segment' and self.__value_test(value):
+                data_segment.set_Data_Segment(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String', valueOf_=value))
+            elif key == 'offset' and self.__value_test(value):
+                data_segment.set_Offset(maecbundle.cybox_common_types_1_0.IntegerObjectAttributeType(datatype='Int', valueOf_=value))
         if data_segment.hasContent_():
             data_effect.set_Data(data_segment)
         return data_effect
