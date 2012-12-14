@@ -1069,10 +1069,30 @@ class maec_object:
                 proc_object.set_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
             elif key == 'parentpid' and self.__value_test(value):
                 proc_object.set_Parent_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(datatype='UnsignedInt', valueOf_=value))
+            elif key == 'child_pid_list':
+                child_list = process_object.ChildPIDListType()
+                child_list.set_Child_PID([])
+                for id in value:
+                    child_list.add_Child_PID(maecbundle.cybox_common_types_1_0.UnsignedIntegerObjectAttributeType(valueOf_=id))
+                proc_object.set_Child_PID_List(child_list)
+            elif key == 'arguments':
+                arg_list = []
+                for arg in value:
+                    #TODO: correct?
+                    arg_list.append(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(arg)))
+                argument_list = process_object.ArgumentListType();
+                argument_list.set_Argument(arg_list)
+                proc_object.set_Argument_List(argument_list)
             elif key == 'username' and self.__value_test(value):
                 proc_object.set_Username(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'creation_time' and self.__value_test(value):
+                proc_object.set_Creation_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))            
             elif key == 'start_time' and self.__value_test(value):
                 proc_object.set_Start_Time(maecbundle.cybox_common_types_1_0.DateTimeObjectAttributeType(datatype='DateTime',valueOf_=maecbundle.quote_xml(value)))
+            elif key == 'kernel_time' and self.__value_test(value):
+                proc_object.set_Kernel_Time(maecbundle.cybox_common_types_1_0.DurationObjectAttributeType(datatype='Duration',valueOf_=maecbundle.quote_xml(value)))            
+            elif key == 'user_time' and self.__value_test(value):
+                proc_object.set_User_Time(maecbundle.cybox_common_types_1_0.DurationObjectAttributeType(datatype='Duration',valueOf_=maecbundle.quote_xml(value)))            
             elif key == 'association':
                 cybox_object.set_association_type(value)
             elif key == 'av_classifications':
