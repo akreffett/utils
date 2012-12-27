@@ -9,13 +9,14 @@
 import maec_package_1_0 as maecpackage
         
 class maec_analysis:
-    def __init__(self, generator, method = None, type = None):
+    def __init__(self, generator, method = None, type = None, analysis_attributes_dict = None):
         self.generator = generator
         self.analysis = maecpackage.AnalysisType(id=self.generator.generate_ana_id())
         if method is not None:
             self.analysis.set_method(method)
         if type is not None:
             self.analysis.set_type(type)
+        self.analysis_attributes_dict = analysis_attributes_dict
         self.tool_list = maecpackage.ToolListType()
 
     #"Public" methods
@@ -28,6 +29,11 @@ class maec_analysis:
    
     def add_tool(self, tool_dictionary):
         self.__create_tool(tool_dictionary)
+
+    #Build the Analysis from the input dictionary
+    def build_from_dictionary(self):
+        for key, value in self.analysis_attributes_dict.items():
+            pass
 
     def get(self):
         if self.tool_list.hasContent_():
