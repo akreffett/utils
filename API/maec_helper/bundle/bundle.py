@@ -7,9 +7,10 @@
 #Last updated 12/27/2012
 
 import maec_bundle_3_0 as maecbundle
+import datetime
        
 class maec_bundle:
-    def __init__(self, generator, schema_version, defined_subject, content_type = None, malware_instance_object = None):
+    def __init__(self, generator, schema_version, defined_subject, content_type = None, malware_instance_object = None, bundle_attributes_dict = None):
         self.generator = generator
         #Create the MAEC Bundle object
         self.bundle = maecbundle.BundleType(id=self.generator.generate_bnd_id())
@@ -25,6 +26,7 @@ class maec_bundle:
         #Set the Malware Instance Object Attributes (a CybOX object) if they are not none
         if malware_instance_object is not None:
             self.bundle.set_Malware_Instance_Attributes(malware_instance_object)
+        self.bundle_attributes_dict = bundle_attributes_dict
         #Add all of the top-level containers
         self.actions = maecbundle.ActionListType()
         self.process_tree = maecbundle.ProcessTreeType()
@@ -142,7 +144,12 @@ class maec_bundle:
         self.__build__()
         outfile = open(outfilename, 'w')
         self.bundle.export(outfile, 0, namespacedef_=self.__build_namespaces_schemalocations())
-        
+     
+    #Build the Bundle from the input dictionary
+    def build_from_dictionary(self):
+        for key, value in self.bundle_attributes_dict.items():
+            pass
+
     #Accessor methods
     def get(self):
         self.__build__()
