@@ -8,7 +8,7 @@
 
 import maec_package_1_0 as maecpackage
         
-class maec_analysis:
+class analysis:
     def __init__(self, generator, method = None, type = None, analysis_attributes_dict = None):
         self.generator = generator
         self.analysis = maecpackage.AnalysisType(id=self.generator.generate_ana_id())
