@@ -4,20 +4,20 @@
 #All rights reserved.
 
 #Compatible with MAEC v3.0
-#Last updated 12/27/2012
+#Last updated 12/28/2012
 
-import maec_package_1_0 as maecpackage
+import maec_package_1_0 as package_binding
         
 class analysis:
     def __init__(self, generator, method = None, type = None, analysis_attributes_dict = None):
         self.generator = generator
-        self.analysis = maecpackage.AnalysisType(id=self.generator.generate_ana_id())
+        self.analysis = package_binding.AnalysisType(id=self.generator.generate_ana_id())
         if method is not None:
             self.analysis.set_method(method)
         if type is not None:
             self.analysis.set_type(type)
         self.analysis_attributes_dict = analysis_attributes_dict
-        self.tool_list = maecpackage.ToolListType()
+        self.tool_list = package_binding.ToolListType()
 
     #"Public" methods
     def set_findings_bundle_reference(self, bundle_idref):
@@ -45,7 +45,7 @@ class analysis:
     #Create the MAEC tool type
     def __create_tool(self, tool_dictionary):
         #Create the Tool and set its ID
-        tool = maecpackage.cybox_common_types_1_0.ToolInformationType(id=self.generator.generate_tol_id())
+        tool = package_binding.cybox_common_types_1_0.ToolInformationType(id=self.generator.generate_tol_id())
         for key, value in tool_dictionary.items():
             if key.lower() == 'description':
                 if value is not None and len(value) > 0:

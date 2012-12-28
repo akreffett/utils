@@ -6,18 +6,18 @@
 #Compatible with MAEC v3.0
 #Last updated 12/27/2012
 
-import maec_package_1_0 as maecpackage
+import maec_package_1_0 as package_binding
 
 class package:
     def __init__(self, generator, schema_version, package_attributes_dict = None):
         self.generator = generator
         #Create the MAEC Package object
-        self.package = maecpackage.PackageType(id=self.generator.generate_pkg_id())
+        self.package = package_binding.PackageType(id=self.generator.generate_pkg_id())
         #Set the schema version
         self.package.set_schema_version(schema_version)
         self.package_attributes_dict = package_attributes_dict
         #Create the subject list
-        self.subjects = maecpackage.MalwareSubjectListType()
+        self.subjects = package_binding.MalwareSubjectListType()
         #Create the namespace and schemalocation declarations
         self.namespace_prefixes = {'xmlns:maecPackage' : '"http://maec.mitre.org/XMLSchema/maec-package-1"',
                                    'xmlns:maecBundle' : '"http://maec.mitre.org/XMLSchema/maec-bundle-3"',
@@ -65,7 +65,6 @@ class package:
         self.__build__()
         outfile = open(outfilename, 'w')
         self.package.export(outfile, 0, namespacedef_=self.__build_namespaces_schemalocations())
-
 
     #Private methods
 
