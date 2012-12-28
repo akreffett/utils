@@ -6,14 +6,14 @@
 #Compatible with MAEC v3.0
 #Last updated 12/27/2012
 
-import maec_bundle_3_0 as maecbundle
+import maec_bundle_3_0 as bundle_binding
 import datetime
        
-class maec_bundle:
+class bundle:
     def __init__(self, generator, schema_version, defined_subject, content_type = None, malware_instance_object = None, bundle_attributes_dict = None):
         self.generator = generator
         #Create the MAEC Bundle object
-        self.bundle = maecbundle.BundleType(id=self.generator.generate_bnd_id())
+        self.bundle = bundle_binding.BundleType(id=self.generator.generate_bnd_id())
         #Set the bundle schema version
         self.bundle.set_schema_version(schema_version)
         #Set the bundle timestamp
@@ -28,12 +28,12 @@ class maec_bundle:
             self.bundle.set_Malware_Instance_Attributes(malware_instance_object)
         self.bundle_attributes_dict = bundle_attributes_dict
         #Add all of the top-level containers
-        self.actions = maecbundle.ActionListType()
-        self.process_tree = maecbundle.ProcessTreeType()
-        self.behaviors = maecbundle.BehaviorListType()
-        self.objects = maecbundle.ObjectListType()
-        self.candidate_indicators = maecbundle.CandidateIndicatorListType()
-        self.collections = maecbundle.CollectionsType()
+        self.actions = bundle_binding.ActionListType()
+        self.process_tree = bundle_binding.ProcessTreeType()
+        self.behaviors = bundle_binding.BehaviorListType()
+        self.objects = bundle_binding.ObjectListType()
+        self.candidate_indicators = bundle_binding.CandidateIndicatorListType()
+        self.collections = bundle_binding.CollectionsType()
         #Add the collection dictionaries
         self.action_collections = {}
         self.object_collections = {}
@@ -69,8 +69,8 @@ class maec_bundle:
                 action_list.add_Action(action)
             #The collection has not already been defined
             else:
-                action_collection = maecbundle.ActionCollectionType(id=self.generator.generate_actc_id(), name = action_collection_name)
-                action_list = maecbundle.ActionListType()
+                action_collection = bundle_binding.ActionCollectionType(id=self.generator.generate_actc_id(), name = action_collection_name)
+                action_list = bundle_binding.ActionListType()
                 action_list.add_Action(action)
                 action_collection.set_Action_List(action_list)
                 self.action_collections[action_collection_name] = action_collection
@@ -87,8 +87,8 @@ class maec_bundle:
                 object_list.add_Object(object)
             #The collection has not already been defined
             else:
-                object_collection = maecbundle.ObjectCollectionType(id=self.generator.generate_objc_id(), name = object_collection_name)
-                object_list = maecbundle.ObjectListType()
+                object_collection = bundle_binding.ObjectCollectionType(id=self.generator.generate_objc_id(), name = object_collection_name)
+                object_list = bundle_binding.ObjectListType()
                 object_list.add_Object(object)
                 object_collection.set_Object_List(object_list)
                 self.object_collections[object_collection_name] = object_collection
@@ -105,8 +105,8 @@ class maec_bundle:
                 behavior_list.add_Behavior(behavior)
             #The collection has not already been defined
             else:
-                behavior_collection = maecbundle.BehaviorCollectionType(id=self.generator.generate_bhvc_id(), name = behavior_collection_name)
-                behavior_list = maecbundle.BehaviorListType()
+                behavior_collection = bundle_binding.BehaviorCollectionType(id=self.generator.generate_bhvc_id(), name = behavior_collection_name)
+                behavior_list = bundle_binding.BehaviorListType()
                 behavior_list.add_Behavior(behavior)
                 behavior_collection.set_Behavior_List(behavior_list)
                 self.behavior_collections[behavior_collection_name] = behavior_collection
@@ -123,8 +123,8 @@ class maec_bundle:
                 candidate_indicator_list.add_Candidate_Indicator(candidate_indicator)
             #The collection has not already been defined
             else:
-                candidate_indicator_collection = maecbundle.CandidateIndicatorCollectionType(id=self.generator.generate_indc_id(), name = candidate_indicator_collection_name)
-                candidate_indicator_list = maecbundle.CandidateIndicatorListType()
+                candidate_indicator_collection = bundle_binding.CandidateIndicatorCollectionType(id=self.generator.generate_indc_id(), name = candidate_indicator_collection_name)
+                candidate_indicator_list = bundle_binding.CandidateIndicatorListType()
                 candidate_indicator_list.add_Candidate_Indicator(candidate_indicator)
                 candidate_indicator_collection.set_Candidate_Indicator_List(candidate_indicator_list)
                 self.candidate_indicator_collections[candidate_indicator_collection_name] = candidate_indicator_collection
@@ -171,22 +171,22 @@ class maec_bundle:
         if self.candidate_indicators.hasContent_(): self.bundle.set_Candidate_Indicators(self.candidate_indicators)
         #Add the particular Collection types, if applicable
         if len(self.action_collections) > 0:
-            action_collection_list = maecbundle.ActionCollectionListType()
+            action_collection_list = bundle_binding.ActionCollectionListType()
             for action_collection in self.action_collections.values():
                 action_collection_list.add_Action_Collection(action_collection)
             self.collections.set_Action_Collections(action_collection_list)
         if len(self.object_collections) > 0:
-            object_collection_list = maecbundle.ObjectCollectionListType()
+            object_collection_list = bundle_binding.ObjectCollectionListType()
             for object_collection in self.object_collections.values():
                 object_collection_list.add_Object_Collection(object_collection)
             self.collections.set_Object_Collections(object_collection_list)
         if len(self.behavior_collections) > 0:
-            behavior_collection_list = maecbundle.BehaviorCollectionListType()
+            behavior_collection_list = bundle_binding.BehaviorCollectionListType()
             for behavior_collection in self.behavior_collections.values():
                 behavior_collection_list.add_Behavior_Collection(behavior_collection)
             self.collections.set_Behavior_Collections(behavior_collection_list)
         if len(self.candidate_indicator_collections) > 0:
-            candidate_indicator_collection_list = maecbundle.CandidateIndicatorCollectionListType()
+            candidate_indicator_collection_list = bundle_binding.CandidateIndicatorCollectionListType()
             for candidate_indicator_collection in self.candidate_indicator_collections.values():
                 candidate_indicator_collection_list.add_Candidate_Indicator_Collection(candidate_indicator_collection)
             self.collections.set_Candidate_Indicator_Collections(candidate_indicator_collection_list)
