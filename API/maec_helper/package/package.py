@@ -9,13 +9,13 @@
 import maec_package_1_0 as maecpackage
 
 class package:
-    def __init__(self, generator, schema_version, subject_attributes_dict = None):
+    def __init__(self, generator, schema_version, package_attributes_dict = None):
         self.generator = generator
         #Create the MAEC Package object
         self.package = maecpackage.PackageType(id=self.generator.generate_pkg_id())
         #Set the schema version
         self.package.set_schema_version(schema_version)
-        self.subject_attributes_dict = subject_attributes_dict
+        self.package_attributes_dict = package_attributes_dict
         #Create the subject list
         self.subjects = maecpackage.MalwareSubjectListType()
         #Create the namespace and schemalocation declarations
@@ -50,9 +50,9 @@ class package:
     def add_schemalocation(self, namespace, schemalocation):
         self.schemalocations[namespace] = schemalocation
 
-    #Build the Subject from the input dictionary
+    #Build the Package from the input dictionary
     def build_from_dictionary(self):
-        for key, value in self.subject_attributes_dict.items():
+        for key, value in self.package_attributes_dict.items():
             pass
 
     #Get the package
