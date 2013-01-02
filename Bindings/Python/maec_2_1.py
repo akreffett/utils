@@ -8,12 +8,12 @@
 import sys
 import getopt
 import re as re_
-import cybox.cybox_1_0 as cybox
-import cybox.common_types_1_0 as common
-import cybox.uri_object_1_1 as uri_object
-import cybox.system_object_1_2 as system_object
-import cybox.win_system_object_1_1 as win_system_object
-import cybox.code_object_1_0 as code_object
+import cybox.cybox_core_1_0 as cybox
+import cybox.cybox_common_types_1_0 as common
+import cybox.uri_object_1_2 as uri_object
+import cybox.system_object_1_3 as system_object
+import cybox.win_system_object_1_2 as win_system_object
+import cybox.code_object_1_1 as code_object
 import mmdef_1_2 as mmdef
 
 etree_ = None

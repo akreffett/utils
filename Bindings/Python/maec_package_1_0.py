@@ -10,9 +10,9 @@ import getopt
 import re as re_
 
 import mmdef_1_2
-import cybox_core_1_0
-import system_object_1_3
-import cybox_common_types_1_0
+import cybox.cybox_core_1_0 as cybox_core_1_0
+import cybox.system_object_1_3 as system_object_1_3
+import cybox.cybox_common_types_1_0 as cybox_common_types_1_0
 import maec_bundle_3_0
 
 etree_ = None
@@ -2415,7 +2415,7 @@ class GroupingRelationshipType(GeneratedsSuper):
     def get_Malware_Family_Name(self): return self.Malware_Family_Name
     def set_Malware_Family_Name(self, Malware_Family_Name): self.Malware_Family_Name = Malware_Family_Name
     def get_Malware_Toolkit_Name(self): return self.Malware_Toolkit_Name
-    def set_Malware_Toolkit_Name(self, Malware_Family_Name): self.Malware_Toolkit_Name = Malware_Toolkit_Name
+    def set_Malware_Toolkit_Name(self, Malware_Toolkit_Name): self.Malware_Toolkit_Name = Malware_Toolkit_Name
     def get_Clustering_Metadata(self): return self.Clustering_Metadata
     def set_Clustering_Metadata(self, Clustering_Metadata): self.Clustering_Metadata = Clustering_Metadata
     def get_type(self): return self.type_
