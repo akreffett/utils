@@ -4,7 +4,7 @@
 #All rights reserved.
 
 #Compatible with MAEC v3.0
-#Last updated 12/27/2012
+#Last updated 12/28/2012
 
 import maec_package_1_0 as package_binding
 
