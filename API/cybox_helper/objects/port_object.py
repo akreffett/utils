@@ -26,3 +26,5 @@ class port_object(object):
         if defined_object.get_Layer4_Protocol() is not None:
             defined_object_dict['layer4_protocol'] = common_methods.parse_object_attribute_type(defined_object.get_Layer4_Protocol())
         return defined_object_dict
+
+
