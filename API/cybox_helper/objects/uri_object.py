@@ -1,30 +1,30 @@
-import maec_bundle_3_0 as maecbundle
+import common_methods
+import cybox.cybox_common_types_1_0 as cybox_common
 import cybox.uri_object_1_2 as cybox_uri_object
 
 class uri_object:
-    def __init__(self, id):
-        self.id = id
-        
-    def build_object(self, uri_attributes):
-        cybox_object = maecbundle.cybox_core_1_0.AssociatedObjectType(id=self.generator.generate_obj_id(), type_="URI")
+    def __init__(self):
+        pass
+    
+    @classmethod    
+    def create_from_dict(cls, uri_attributes):
         uriobject = cybox_uri_object.URIObjectType()
         uriobject.set_anyAttributes_({'xsi:type' : 'URIObj:URIObjectType'})
         
         for key, value in uri_attributes.items():
-            if key == 'type' and self.__value_test(value):
+            if key == 'type' and common_methods.test_value(value):
                 uriobject.set_type(value)
-            elif key == 'value' and self.__value_test(value):
-                uriobject.set_Value(maecbundle.cybox_common_types_1_0.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=maecbundle.quote_xml(value)))
-            elif key == 'related_objects':
-                related_objects = maecbundle.cybox_core_1_0.RelatedObjectsType()
-                for related_object in value:
-                    related_objects.add_Related_Object(related_object)
-                if related_objects.hasContent_():
-                    cybox_object.set_Related_Objects(related_objects)
-            elif key == 'association':
-                cybox_object.set_association_type(value)
+            elif key == 'value' and common_methods.test_value(value):
+                uriobject.set_Value(cybox_common.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=cybox_common.quote_xml(value)))
         
-        if uriobject.hasContent_():
-            cybox_object.set_Defined_Object(uriobject)
-        
-        return cybox_object
+        return uriobject
+
+    @classmethod
+    def parse_into_dict(cls, defined_object, defined_object_dict = None):
+        if defined_object_dict == None:
+            defined_object_dict = {}
+        if defined_object.get_type() is not None:
+            defined_object_dict['type'] = defined_object.get_type()
+        if defined_object.get_Value() is not None:
+            defined_object_dict['value'] = self.parse_object_attribute_type(defined_object.get_Value())
+        return defined_object_dict
