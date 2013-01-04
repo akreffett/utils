@@ -12,9 +12,9 @@ class port_object(object):
         portobj.set_anyAttributes_({'xsi:type' : 'PortObj:PortObjectType'})
         for key, value in port_attributes.items():
             if key == 'port_value' and common_methods.test_value(value):
-                portobj.set_Port_Value(cybox_common.PositiveIntegerObjectAttributeType(datatype='PositiveInteger', valueOf_=cybox_common.quote_xml(value)))
+                portobj.set_Port_Value(common_methods.create_element_from_dict(cybox_common.PositiveIntegerObjectAttributeType(datatype='PositiveInteger'),value))
             elif key == 'layer4_protocol' and common_methods.test_value(value):
-                portobj.set_Layer4_Protocol(cybox_common.StringObjectAttributeType(datatype='String', valueOf_=value))
+                portobj.set_Layer4_Protocol(common_methods.create_element_from_dict(cybox_common.StringObjectAttributeType(datatype='String'),value))
         return portobj
 
     @classmethod
