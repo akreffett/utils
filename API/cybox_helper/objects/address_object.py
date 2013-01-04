@@ -7,7 +7,7 @@ class address_object:
         pass
     
     @classmethod
-    def create_from_dict(self, address_attributes):
+    def create_from_dict(cls, address_attributes):
         addrobject = cybox_address_object.AddressObjectType()
         addrobject.set_anyAttributes_({'xsi:type' : 'AddressObj:AddressObjectType'})
         
@@ -28,7 +28,8 @@ class address_object:
                 addrobject.set_Address_Value(cybox_common.StringObjectAttributeType(datatype='String', valueOf_=cybox_common.quote_xml(value)))
         return addrobject
 
-    def parse_into_dict(self, defined_object, defined_object_dict = None):
+    @classmethod
+    def parse_into_dict(cls, defined_object, defined_object_dict = None):
         if defined_object_dict == None:
             defined_object_dict = {}
         if defined_object.get_category() is not None:
