@@ -26,5 +26,5 @@ class uri_object:
         if defined_object.get_type() is not None:
             defined_object_dict['type'] = defined_object.get_type()
         if defined_object.get_Value() is not None:
-            defined_object_dict['value'] = common_methods.parse_object_attribute_type(defined_object.get_Value())
+            defined_object_dict['value'] = common_methods.parse_element_into_dict(defined_object.get_Value())
         return defined_object_dict
