@@ -22,9 +22,9 @@ class port_object(object):
         if defined_object_dict == None:
             defined_object_dict = {}
         if defined_object.get_Port_Value() is not None:
-            defined_object_dict['port_value'] = common_methods.parse_object_attribute_type(defined_object.get_Port_Value())
+            defined_object_dict['port_value'] = common_methods.parse_element_into_dict(defined_object.get_Port_Value())
         if defined_object.get_Layer4_Protocol() is not None:
-            defined_object_dict['layer4_protocol'] = common_methods.parse_object_attribute_type(defined_object.get_Layer4_Protocol())
+            defined_object_dict['layer4_protocol'] = common_methods.parse_element_into_dict(defined_object.get_Layer4_Protocol())
         return defined_object_dict
 
 
