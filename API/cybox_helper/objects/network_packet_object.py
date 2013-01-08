@@ -13,18 +13,19 @@ class network_packet_object(object):
         pass
 
     @classmethod
-    def parse_into_dict(self, defined_object, defined_object_dict = None):
+    def parse_into_dict(cls, defined_object, defined_object_dict = None):
         if defined_object_dict == None:
             defined_object_dict = {}
         if defined_object.get_Link_Layer() is not None:
-            defined_object_dict['link_layer'] = self.__parse_link_layer(defined_object.get_Link_Layer())
+            defined_object_dict['link_layer'] = cls.__parse_link_layer(defined_object.get_Link_Layer())
         if defined_object.get_Internet_Layer() is not None:
-            defined_object_dict['internet_layer'] = self.__parse_internet_layer(defined_object.get_Internet_Layer())
+            defined_object_dict['internet_layer'] = cls.__parse_internet_layer(defined_object.get_Internet_Layer())
         if defined_object.get_Transport_Layer() is not None:
-            defined_object_dict['transport_layer'] = self.__parse_transport_layer(defined_object.get_Transport_Layer())
+            defined_object_dict['transport_layer'] = cls.__parse_transport_layer(defined_object.get_Transport_Layer())
         return defined_object_dict
 
-    def __parse_link_layer(self, link_layer):
+    @classmethod
+    def __parse_link_layer(cls, link_layer):
         link_layer_dict = {}
         if link_layer.get_Physical_Interface() is not None:
             physical_interface = link_layer.get_Physical_Interface()
@@ -190,7 +191,8 @@ class network_packet_object(object):
             link_layer_dict['logical_protocols'] = logical_protocols_dict   
         return link_layer_dict
 
-    def __parse_internet_layer(self, internet_layer):
+    @classmethod
+    def __parse_internet_layer(cls, internet_layer):
         internet_layer_dict = {}
         if internet_layer.get_IPv4() is not None:
             ipv4 = internet_layer.get_IPv4()
@@ -549,7 +551,8 @@ class network_packet_object(object):
             internet_layer_dict['icmpv6'] = icmpv6_dict    
         return internet_layer_dict
 
-    def __parse_transport_layer(self, transport_layer):
+    @classmethod
+    def __parse_transport_layer(cls, transport_layer):
         transport_layer_dict = {}
         if transport_layer.get_TCP() is not None:
             tcp = transport_layer.get_TCP()
