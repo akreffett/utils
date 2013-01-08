@@ -39,11 +39,11 @@ class address_object:
         if defined_object.get_is_destination() is not None:
             defined_object_dict['is_destination'] = defined_object.get_is_destination()
         if defined_object.get_Address_Value() is not None:
-            defined_object_dict['address_value'] = common_methods.parse_object_attribute_type(defined_object.get_Address_Value())
+            defined_object_dict['address_value'] = common_methods.parse_element_into_dict(defined_object.get_Address_Value())
         if defined_object.get_Ext_Category() is not None:
-            defined_object_dict['ext_category'] = common_methods.parse_object_attribute_type(defined_object.get_Ext_Category())
+            defined_object_dict['ext_category'] = common_methods.parse_element_into_dict(defined_object.get_Ext_Category())
         if defined_object.get_VLAN_Name() is not None:
-            defined_object_dict['vlan_name'] = common_methods.parse_object_attribute_type(defined_object.get_VLAN_Name())
+            defined_object_dict['vlan_name'] = common_methods.parse_element_into_dict(defined_object.get_VLAN_Name())
         if defined_object.get_VLAN_Num() is not None:
-            defined_object_dict['vlan_num'] = common_methods.parse_object_attribute_type(defined_object.get_VLAN_Num())
+            defined_object_dict['vlan_num'] = common_methods.parse_element_into_dict(defined_object.get_VLAN_Num())
         return defined_object_dict
