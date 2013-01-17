@@ -1,23 +1,40 @@
-import maec_bundle_3_0 as maecbundle
+import common_methods
+import cybox.cybox_common_types_1_0 as cybox_common
 import cybox.win_mutex_object_1_2 as cybox_win_mutex_object
+import cybox_helper.objects.win_handle_object.win_handle_object as cybox_win_handle_object
+
 
 class mutex_object:
     def __init__(self, id):
         self.id = id
         
-    def build_object(self, mutex_attributes):
-        cybox_object = maecbundle.cybox_core_1_0.AssociatedObjectType(id=self.generator.generate_obj_id(), type_='Mutex')
+    @classmethod
+    def create_from_dict(cls, mutex_attributes):
         mutex_obj = cybox_win_mutex_object.WindowsMutexObjectType()
         mutex_obj.set_anyAttributes_({'xsi:type' : 'WinMutexObj:WindowsMutexObjectType'})
         
         for key, value in mutex_attributes.items():
-            if key == 'name' and self.__value_test(value):
-                mutex_obj.set_Name(maecbundle.cybox_common_types_1_0.StringObjectAttributeType(datatype='String',valueOf_=maecbundle.quote_xml(value)))
+            if key == 'name' and common_methods.test_value(value):
+                mutex_obj.set_Name(common_methods.create_element_from_dict(cybox_common.StringObjectAttributeType(datatype='String'),value))
                 mutex_obj.set_named(True)
-            elif key == 'association':
-                cybox_object.set_association_type(value)
+            if key == 'security_attributes' and common_methods.test_value(value):
+                mutex_obj.set_Security_Attributes(common_methods.create_element_from_dict(cybox_common.StringObjectAttributeType(datatype='String'),value))
+            if key == 'handle' and common_methods.test_value(value):
+                mutex_obj.set_Handle(cybox_win_handle_object.create_from_dict(value))
         
-        if mutex_obj.hasContent_():
-            cybox_object.set_Defined_Object(mutex_obj)
-        
-        return cybox_object
+        return mutex_object
+    
+    
+    @classmethod
+    def parse_into_dict(cls, defined_object, defined_object_dict = None):
+        if defined_object_dict == None:
+            defined_object_dict = {}
+            
+            if defined_object.get_Name() is not None:
+                defined_object_dict["name"] = common_methods.parse_element_into_dict(defined_object.get_Name())
+            if defined_object.get_Security_Attributes() is not None:
+                defined_object_dict["security_attributes"] = common_methods.parse_element_into_dict(defined_object.get_Security_Attributes())
+            if defined_object.get_Handle() is not None:
+                defined_object_dict["handle"] = cybox_win_handle_object.parse_into_dict(defined_object.get_Handle())
+            
+        return defined_object_dict
