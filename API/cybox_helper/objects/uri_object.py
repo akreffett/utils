@@ -15,7 +15,7 @@ class uri_object:
             if key == 'type' and common_methods.test_value(value):
                 uriobject.set_type(value)
             elif key == 'value' and common_methods.test_value(value):
-                uriobject.set_Value(cybox_common.AnyURIObjectAttributeType(datatype='AnyURI', valueOf_=cybox_common.quote_xml(value)))
+                uriobject.set_Value(common_methods.create_element_from_dict(cybox_common.AnyURIObjectAttributeType(datatype='AnyURI'), value))
         
         return uriobject
 
