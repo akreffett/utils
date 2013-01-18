@@ -51,7 +51,7 @@ class email_object(object):
                     if headername == 'message_id':
                         header.set_Message_ID(common_methods.create_element_from_dict(cybox_common.StringObjectAttributeType(datatype="String"), headervalue))
                     if headername == 'date':
-                        header.set_From(common_methods.create_element_from_dict(cybox_common.StringObjectAttributeType(datatype="String"), headervalue))
+                        header.set_From(common_methods.create_element_from_dict(cybox_common.DateTimeObjectAttributeType(datatype="String"), headervalue))
                     if headername == 'sender':
                         header.set_Sender(cybox_address_helper.create_from_dict(headervalue))
                     if headername == 'reply_to':
@@ -90,6 +90,72 @@ class email_object(object):
         if defined_object_dict == None:
             defined_object_dict = {}
             
+        if defined_object.get_Attachments() is not None:
+            files = defined_object.get_Attachments().get_File()
+            attachment_list = []
+            for file in files:
+                attachment_list.append(cybox_file_helper.parse_into_dict(file))
+            defined_object_dict['attachments'] = attachment_list
+        if defined_object.get_Links() is not None:
+            links = defined_object.get_Links().get_Link()
+            link_list = []
+            for link in links:
+                attachment_list.append(cybox_uri_helper.parse_into_dict(link))
+            defined_object_dict['links'] = link_list
+        if defined_object.get_Header() is not None:
+            defined_object_dict['header'] = {}
+            header = defined_object.get_Header()
+            if header.get_To() is not None:
+                to_list = []
+                recipients = header.get_To().get_Recipient()
+                for addr in recipients:
+                    to_list.append(cybox_address_helper.parse_into_dict(addr))
+                defined_object_dict['header']['to'] = to_list
+            if header.get_CC() is not None:
+                cc_list = []
+                recipients = header.get_CC().get_Recipient()
+                for addr in recipients:
+                    cc_list.append(cybox_address_helper.parse_into_dict(addr))
+                defined_object_dict['header']['cc'] = cc_list
+            if header.get_BCC() is not None:
+                bcc_list = []
+                recipients = header.get_BCC().get_Recipient()
+                for addr in recipients:
+                    bcc_list.append(cybox_address_helper.parse_into_dict(addr))
+                defined_object_dict['header']['bcc'] = bcc_list
+            if defined_object.get_Subject() is not None:
+                defined_object_dict['header']['subject'] = common_methods.parse_element_into_dict(defined_object.get_Subject())
+            if defined_object.get_In_Reply_To() is not None:
+                defined_object_dict['header']['in_reply_to'] = common_methods.parse_element_into_dict(defined_object.get_In_Reply_To())
+            if defined_object.get_Message_ID() is not None:
+                defined_object_dict['header']['message_id'] = common_methods.parse_element_into_dict(defined_object.get_Message_ID())
+            if defined_object.get_Date() is not None:
+                defined_object_dict['header']['date'] = common_methods.parse_element_into_dict(defined_object.get_Date())
+            if defined_object.get_From() is not None:
+                defined_object_dict['header']['from'] = cybox_address_helper.parse_into_dict(defined_object.get_From())
+            if defined_object.get_Sender() is not None:
+                defined_object_dict['header']['sender'] = cybox_address_helper.parse_into_dict(defined_object.get_Sender())
+            if defined_object.get_Reply_To() is not None:
+                defined_object_dict['header']['reply_to'] = cybox_address_helper.parse_into_dict(defined_object.get_Reply_To())
+            if defined_object.get_Errors_To() is not None:
+                defined_object_dict['header']['errors_to'] = common_methods.parse_element_into_dict(defined_object.get_Errors_To())
+        if defined_object.get_Optional_Header() is not None:
+            defined_object_dict['optional_header'] = {}
+            header = defined_object.get_Optional_Header()
+            if defined_object.get_Boundary() is not None:
+                defined_object_dict['optional_header']['boundary'] = common_methods.parse_element_into_dict(defined_object.get_Boundary())
+            if defined_object.get_Content_Type() is not None:
+                defined_object_dict['optional_header']['content_type'] = common_methods.parse_element_into_dict(defined_object.get_Content_Type())
+            if defined_object.get_MIME_Version() is not None:
+                defined_object_dict['optional_header']['mime_version'] = common_methods.parse_element_into_dict(defined_object.get_MIME_Version())
+            if defined_object.get_Precedence() is not None:
+                defined_object_dict['optional_header']['precedence'] = common_methods.parse_element_into_dict(defined_object.get_Precedence())
+            if defined_object.get_X_Mailer() is not None:
+                defined_object_dict['optional_header']['x_mailer'] = common_methods.parse_element_into_dict(defined_object.get_Subject())
+            if defined_object.get_X_Originating_IP() is not None:
+                defined_object_dict['header']['x_originating_ip'] = cybox_address_helper.parse_into_dict(defined_object.get_X_Originating_IP())
+            if defined_object.get_X_Priority() is not None:
+                defined_object_dict['optional_header']['x_priority'] = common_methods.parse_element_into_dict(defined_object.get_X_Priority())
         if defined_object.get_Raw_Body() is not None:
             defined_object_dict['raw_body'] = common_methods.parse_element_into_dict(defined_object.get_Raw_Body())
         if defined_object.get_Raw_Header() is not None:
